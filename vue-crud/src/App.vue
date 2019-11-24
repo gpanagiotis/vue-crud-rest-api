@@ -52,9 +52,7 @@
             </b-collapse>
         </b-navbar>
         </div>
-
-        <router-view class="view" :stored="stored"></router-view>
-
+        <router-view class="view" :stored2="compStored"></router-view>
     </div>
 </template>
 
@@ -63,12 +61,17 @@
     export default {
         name: 'app',
         components: {},
-        data: () => ({stored: null}),
+        data: () => ({stored: '123'}),
         methods: {
             updateStore: function (val) {
                 this.stored = val;
             },
         },
+        computed: {
+            compStored: () => {
+                return 'comp val';
+            }
+        }
     }
 </script>
 

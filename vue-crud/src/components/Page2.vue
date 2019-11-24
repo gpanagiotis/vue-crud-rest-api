@@ -2,6 +2,10 @@
     <div>
         <h1>Page 2</h1>
 
+        <b-table striped hover :items="this.$store.state.tasks"></b-table>
+
+
+        <p v-if="var1 && var2">{{ var1 }} - {{ var2 }}</p>
         <p>{{`${num1} + ${num2} equal ${num3}`}}</p>
         <input v-model="num1">
         <input v-model="num2">
@@ -36,8 +40,11 @@
             num2: function () {
                 this.$parent.updateStore(this.sumValues());
             },
-        }
-
+        },
+        props: {
+            var1:String,
+            var2:String,
+        },
     }
 </script>
 

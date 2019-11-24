@@ -1,28 +1,9 @@
 <template>
     <div>
 
-        <b-table striped hover :items="tasks" :fields="tasksColumns"></b-table>
+        <b-table striped hover :items="this.$store.state.tasks" :fields="tasksColumns"></b-table>
         <b-button v-b-modal.modal-1>+</b-button>
         <TaskModal/>
-        <!--        <table>-->
-        <!--            <thead>-->
-        <!--            <tr>-->
-        <!--                <th>a/a</th>-->
-        <!--                <th>Id</th>-->
-        <!--                <th>Name</th>-->
-        <!--                <th>Body</th>-->
-        <!--            </tr>-->
-        <!--            </thead>-->
-        <!--            <tbody>-->
-        <!--            <tr v-for="(task,index) in tasks" :key="index">-->
-        <!--                <td>{{ index+1 }}</td>-->
-        <!--                <td>{{ task.id }}</td>-->
-        <!--                <td>{{ task.name }}</td>-->
-        <!--                <td>{{ task.body }}</td>-->
-        <!--            </tr>-->
-        <!--            </tbody>-->
-
-        <!--        </table>-->
 
     </div>
 </template>
@@ -36,14 +17,20 @@
 
         //data: function() { return {name:'Panagiotis', surname:"Giannitsaros"}; }
         data: () => ({
-            tasks: [],
+            //tasks: [],
             tasksColumns: [
+                {key: 'name'},
                 {key: 'body'},
-                {key: 'name'}
+
             ],
         }),
         components: {
             TaskModal
+        },
+        computed: {
+            mytasks: function () {
+                return this.$store.state.tasks
+            }
         },
         props: {age: Number, work: String},
         mounted() {
@@ -76,9 +63,12 @@
             getTasks() {
                 axios.get(window.restUrl + 'get-data').then(
                     response => {
-                        this.tasks = response.data
                         // eslint-disable-next-line no-console
-                        console.log(this.tasks)
+                        //console.log(this.$store);
+                        this.$store.state.tasks = response.data;
+                        // eslint-disable-next-line no-console
+                        console.log(this.$store.state.tasks)
+                        //this.tasks = response.data
                     }
                 )
             },

@@ -100,11 +100,16 @@ app.post('/add-task', function (req, res) {
 
     connection.query("INSERT INTO tasks SET ?", payload, function(err, rows) {
         console.log(err);
-        console.log(rows);
+        //console.log(rows);
+        if (!err) {
+            res.json({status:'ok'});
+        } else {
+            res.json({status:'error', 'message':'Could not save the data'});
+        }
     });
 
     //res.send('')
-    res.json({status:'ok'});
+
 })
 
 app.listen(3000, function () {
